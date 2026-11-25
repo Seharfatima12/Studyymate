@@ -21,6 +21,11 @@ pipeline {
                 echo 'Testing StudyMate'
             }
         }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the project'
+            }
+        }
 
     }
 }
