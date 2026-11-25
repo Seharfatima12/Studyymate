@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat – StudyMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Caveat:wght@600&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="chat-page">
+    <!-- Navbar -->
+    {% set active = 'chat' %}
+    {% include '_nav.html' %}
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="bot-info">
+                <div class="bot-avatar">S</div>
+                <div>
+                    <h2>StudyMate</h2>
+                    <span class="status-text"><span class="dot"></span> Online</span>
+                </div>
+            </div>
+            <div class="chat-actions">
+                <button id="clearChat" class="btn-icon" title="Clear chat" aria-label="Clear chat">{{ icon('trash-2') }}</button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be added here by JavaScript -->
+        </div>
+
+        <div class="chat-input-area">
+            <div class="quick-replies" id="quickReplies">
+                <button class="quick-btn" data-msg="Python topics">Python</button>
+                <button class="quick-btn" data-msg="NLP topics">NLP</button>
+                <button class="quick-btn" data-msg="Java study plan">Java plan</button>
+                <button class="quick-btn" data-msg="Maths tips">Maths tips</button>
+                <button class="quick-btn" data-msg="help">Help</button>
+            </div>
+            <form id="chatForm" class="chat-form">
+                <input type="text" id="userInput" placeholder="Type your message... (e.g. I need help with Python)" autocomplete="off" required>
+                <button type="submit" class="btn-send">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Pass initial subject from Flask to JS
+        const initialSubject = "{{ initial_subject }}";
+        const userName = {{ (name or "")|tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+</body>
+</html>

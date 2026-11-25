@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account – StudyMate</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Caveat:wght@600&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+</head><body>
+{% set active = 'login' %}
+{% include '_nav.html' %}
+<main class="auth-page"><form method="post" class="auth-card">
+  <h1>{{ 'Create your account' if mode == 'signup' else 'Welcome back' }}</h1>
+  <p class="plan-subtitle">{{ 'Save your chat, plan progress and quiz scores.' if mode == 'signup' else 'Log in to pick up where you left off.' }}</p>
+  {% if error %}<div class="auth-error" role="alert">{{ error }}</div>{% endif %}
+  {% if mode == 'signup' %}<label>Name<input name="name" required autocomplete="name"></label>{% endif %}
+  <label>Email<input name="email" type="email" required autocomplete="email"></label>
+  <label>Password<input name="password" type="password" required minlength="6" autocomplete="{{ 'new-password' if mode == 'signup' else 'current-password' }}"></label>
+  <button class="btn btn-primary" type="submit">{{ 'Sign up' if mode == 'signup' else 'Log in' }}</button>
+  <p class="auth-alt">{% if mode == 'signup' %}Already have an account? <a href="/login">Log in</a>{% else %}New here? <a href="/signup">Sign up</a>{% endif %}</p>
+</form></main>
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+</body></html>

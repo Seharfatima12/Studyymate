@@ -1,0 +1,13 @@
+<script>const LOGGED_IN = {{ 'true' if session.get('uid') else 'false' }};</script>
+<nav class="navbar">
+    <a class="nav-brand" href="/" style="text-decoration:none"><span class="logo-icon">S</span><span class="logo-text">StudyMate</span></a>
+    <div class="nav-links">
+        <a href="/" {% if active == 'home' %}class="active"{% endif %}>Home</a>
+        <a href="/chat" {% if active == 'chat' %}class="active"{% endif %}>Chat</a>
+        <a href="/quiz" {% if active == 'quiz' %}class="active"{% endif %}>Quiz</a>
+        <a href="/plan" {% if active == 'plan' %}class="active"{% endif %}>Study Plan</a>
+        {% if session.get('uid') %}<a href="/dashboard" {% if active == 'dash' %}class="active"{% endif %}>Dashboard</a><a href="/logout">Log out</a>
+        {% else %}<a href="/login" {% if active == 'login' %}class="active"{% endif %}>Log in</a>{% endif %}
+        <button id="themeToggle" title="Dark / light mode" aria-label="Toggle theme">{{ icon('sun-moon') }}</button>
+    </div>
+</nav>

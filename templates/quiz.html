@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz – StudyMate</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Caveat:wght@600&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+</head><body>
+{% set active = 'quiz' %}
+{% include '_nav.html' %}
+<div class="plan-page">
+  <div class="plan-header"><h1>Quick Quiz</h1><p>Four questions per subject. Pick one to start.</p></div>
+  <div class="plan-selector" id="quizTabs">
+    {% for key, d in subjects.items() %}<button class="plan-tab" data-key="{{ key }}">{{ d.name }}</button>{% endfor %}
+  </div>
+  <div class="plan-card quiz-card" id="quizBox"><p class="plan-subtitle">Choose a subject above.</p></div>
+</div>
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+<script src="{{ url_for('static', filename='quiz.js') }}"></script>
+</body></html>

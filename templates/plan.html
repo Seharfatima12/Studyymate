@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Plan – StudyMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Caveat:wght@600&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    {% set active = 'plan' %}
+    {% include '_nav.html' %}
+
+    <div class="plan-page">
+        <div class="plan-header">
+            <h1>Study Plan</h1>
+            <p>Choose a subject to view a ready-made 7-day study schedule</p>
+        </div>
+
+        <!-- Subject selector -->
+        <div class="plan-selector">
+            <a href="/plan?subject=python" class="plan-tab {% if subject_key == 'python' %}active{% endif %}">Python</a>
+            <a href="/plan?subject=mathematics" class="plan-tab {% if subject_key == 'mathematics' %}active{% endif %}">Maths</a>
+            <a href="/plan?subject=english" class="plan-tab {% if subject_key == 'english' %}active{% endif %}">English</a>
+            <a href="/plan?subject=nlp" class="plan-tab {% if subject_key == 'nlp' %}active{% endif %}">NLP</a>
+            <a href="/plan?subject=java" class="plan-tab {% if subject_key == 'java' %}active{% endif %}">Java</a>
+            <a href="/plan?subject=computer" class="plan-tab {% if subject_key == 'computer' %}active{% endif %}">Computer Science</a>
+        </div>
+
+        <div class="plan-content">
+            <div class="plan-card">
+                <h2>{{ subject.name }}</h2>
+                <p class="plan-subtitle">Simple 7-Day Study Plan</p>
+                <div class="progress"><span id="bar"></span></div>
+
+                <div class="plan-days">
+                    {% for day in subject.plan_1week %}
+                    <label class="day-item">
+                        <input type="checkbox" data-i="{{ loop.index0 }}">
+                        <span class="day-text">{{ day }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="plan-side">
+                <div class="side-card timer">
+                    <h3>Focus timer</h3>
+                    <div class="time" id="time">25:00</div>
+                    <button id="tStart">Start</button><button id="tReset">Reset</button>
+                    <p style="font-size:.8rem;color:var(--ink-soft);margin-top:.4rem">25 min focus, then a 5 min break.</p>
+                </div>
+                <div class="side-card">
+                    <h3>Key Topics</h3>
+                    <ul>
+                        {% for topic in subject.topics %}
+                        <li>{{ topic }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="side-card">
+                    <h3>Study Tips</h3>
+                    <ul>
+                        {% for tip in subject.tips %}
+                        <li>{{ tip }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <a href="/chat?subject={{ subject_key }}" class="btn btn-primary btn-block">Ask StudyMate about {{ subject.name }}</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>StudyMate – built with Python and Flask</p>
+    </footer>
+<script>const SUBJECT_KEY="{{ subject_key }}";</script>
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+<script src="{{ url_for('static', filename='plan.js') }}"></script>
+</body>
+</html>

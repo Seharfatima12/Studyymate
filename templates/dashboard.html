@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard – StudyMate</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Caveat:wght@600&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+</head><body>
+{% set active = 'dash' %}
+{% include '_nav.html' %}
+<div class="plan-page">
+  <div class="plan-header"><h1>Salam, {{ name }}!</h1><p>Here is how your studying is going.</p></div>
+  <div class="stat-row">
+    <div class="side-card stat"><b>{{ stats.started }}/{{ stats.subjects }}</b>subjects started</div>
+    <div class="side-card stat"><b>{{ stats.done }}/{{ stats.days }}</b>plan steps done</div>
+    <div class="side-card stat"><b>{{ stats.quizzes }}</b>quizzes taken</div>
+  </div>
+  <div class="plan-card">
+    <h2>Subject progress</h2>
+    <div class="plan-days" style="margin-top:1rem">
+    {% for r in rows %}
+      <a class="day-item dash-row" href="/plan?subject={{ r.key }}">
+        <span class="day-text"><b>{{ r.name }}</b><br><small>{{ r.done }}/{{ r.days }} plan steps done
+          {% if r.attempts %} • best quiz {{ r.best }}/{{ r.total }} ({{ r.attempts }} {{ "try" if r.attempts == 1 else "tries" }}){% else %} • no quiz yet{% endif %}</small></span>
+        <div class="progress mini"><span style="width:{{ (r.done / r.days * 100)|round }}%"></span></div>
+      </a>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+</body></html>
